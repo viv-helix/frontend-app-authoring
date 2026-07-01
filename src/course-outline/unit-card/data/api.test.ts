@@ -1,9 +1,6 @@
 import { initializeMocks } from '@src/testUtils';
 import { getCourseVerticalChildrenApiUrl } from '@src/course-unit/data/api';
-import {
-  deriveHasPartitionGroupComponents,
-  getUnitHandler,
-} from './api';
+import { getUnitHandler } from './api';
 
 const unitId = 'block-v1:edX+DemoX+Demo+type@vertical+block@abc123';
 
@@ -33,64 +30,6 @@ const mockContainerChildrenResponse = {
   can_paste_component: true,
   upstream_ready_to_sync_children_info: [],
 };
-
-describe('deriveHasPartitionGroupComponents', () => {
-  it('returns true when a component has selected partition groups', () => {
-    const components = [{
-      blockId: 'block-1',
-      blockType: 'html',
-      displayName: 'Text',
-      userPartitionInfo: {
-        selectablePartitions: [{
-          id: 50,
-          name: 'Enrollment Track Groups',
-          scheme: 'enrollment_track',
-          groups: [{
-            id: 1,
-            name: 'Audit',
-            selected: true,
-            deleted: false,
-          }],
-        }],
-        selectedPartitionIndex: -1,
-        selectedGroupsLabel: '',
-      },
-      actions: {
-        canCopy: false, canDuplicate: false, canDelete: false, canMove: false, canManageAccess: false,
-      },
-    }];
-
-    expect(deriveHasPartitionGroupComponents({ hasPartitionGroupComponents: false }, components)).toBe(true);
-  });
-
-  it('returns false when no components have partition group access', () => {
-    const components = [{
-      blockId: 'block-1',
-      blockType: 'html',
-      displayName: 'Text',
-      userPartitionInfo: {
-        selectablePartitions: [{
-          id: 50,
-          name: 'Enrollment Track Groups',
-          scheme: 'enrollment_track',
-          groups: [{
-            id: 1,
-            name: 'Audit',
-            selected: false,
-            deleted: false,
-          }],
-        }],
-        selectedPartitionIndex: -1,
-        selectedGroupsLabel: '',
-      },
-      actions: {
-        canCopy: false, canDuplicate: false, canDelete: false, canMove: false, canManageAccess: false,
-      },
-    }];
-
-    expect(deriveHasPartitionGroupComponents({ hasPartitionGroupComponents: true }, components)).toBe(false);
-  });
-});
 
 describe('unit-card data/api', () => {
   let axiosMock: ReturnType<typeof initializeMocks>['axiosMock'];

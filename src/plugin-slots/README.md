@@ -5,6 +5,8 @@
 * [`org.openedx.frontend.authoring.course_outline_sidebar.v1`](./CourseAuthoringOutlineSidebarSlot/)
 * [`org.openedx.frontend.authoring.course_outline_subsection_card_extra_actions.v1`](./CourseOutlineSubsectionCardExtraActionsSlot)
 * [`org.openedx.frontend.authoring.course_outline_unit_card_extra_actions.v1`](./CourseOutlineUnitCardExtraActionsSlot)
+* [`org.openedx.frontend.authoring.course_outline_unit_card_content.v1`](./CourseOutlineUnitCardContentSlot)
+* [`org.openedx.frontend.authoring.course_outline_unit_card_add_component.v1`](./CourseOutlineUnitCardAddComponentSlot)
 
 ## Course Unit page
 * [`org.openedx.frontend.authoring.course_unit_header_actions.v1`](./CourseUnitHeaderActionsSlot/)

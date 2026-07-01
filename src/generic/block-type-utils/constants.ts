@@ -21,9 +21,6 @@ import {
   Award as GamesIcon,
 } from '@openedx/paragon/icons';
 import NewsstandIcon from '../NewsstandIcon';
-import LtiIcon from './LtiIcon';
-import ScormIcon from './ScormIcon';
-import H5pIcon from './H5pIcon';
 
 export const UNIT_ICON_TYPES = ['video', 'other', 'vertical', 'problem', 'lock'];
 
@@ -40,9 +37,6 @@ export const COMPONENT_TYPES = {
   dragAndDrop: 'drag-and-drop-v2',
   games: 'games',
   invideoquiz: 'invideoquiz',
-  lti: 'lti_consumer',
-  scorm: 'scorm',
-  h5p: 'h5pxblock',
 };
 
 export const UNIT_TYPE_ICONS_MAP: Record<string, React.ComponentType> = {
@@ -68,9 +62,6 @@ export const COMPONENT_TYPE_ICON_MAP: Record<string, React.ComponentType> = {
   [COMPONENT_TYPES.video]: VideoCameraIcon,
   [COMPONENT_TYPES.dragAndDrop]: BackHandIcon,
   [COMPONENT_TYPES.games]: GamesIcon,
-  [COMPONENT_TYPES.lti]: LtiIcon,
-  [COMPONENT_TYPES.scorm]: ScormIcon,
-  [COMPONENT_TYPES.h5p]: H5pIcon,
 };
 
 export const STRUCTURAL_TYPE_ICONS: Record<string, React.ComponentType> = {
@@ -95,9 +86,6 @@ export const COMPONENT_TYPE_STYLE_COLOR_MAP = {
   [COMPONENT_TYPES.problem]: 'component-style-default',
   [COMPONENT_TYPES.video]: 'component-style-video',
   [COMPONENT_TYPES.dragAndDrop]: 'component-style-default',
-  [COMPONENT_TYPES.lti]: 'component-style-default',
-  [COMPONENT_TYPES.scorm]: 'component-style-default',
-  [COMPONENT_TYPES.h5p]: 'component-style-default',
   vertical: 'component-style-vertical',
   unit: 'component-style-vertical',
   sequential: 'component-style-sequential',
