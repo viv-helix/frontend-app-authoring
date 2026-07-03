@@ -64,7 +64,7 @@ import {
 } from './drag-helper/utils';
 import { useCourseOutline } from './hooks';
 import messages from './messages';
-import releaseNotesMessages from '../release-notes/messages';
+import { releaseNotesMessages } from '@edx/frontend-plugin-authoring';
 import { getTagsExportFile } from './data/api';
 import OutlineAddChildButtons from './OutlineAddChildButtons';
 

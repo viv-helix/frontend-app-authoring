@@ -28,8 +28,7 @@ import {
 } from './library-authoring';
 import initializeStore from './store';
 import CourseAuthoringRoutes from './CourseAuthoringRoutes';
-import ReleaseNotes from './release-notes/ReleaseNotes';
-import ReleaseNoteUnsubscribe from './release-notes/unsubscribe/ReleaseNoteUnsubscribe';
+import { ReleaseNotes, ReleaseNoteUnsubscribe } from '@edx/frontend-plugin-authoring';
 import Head from './head/Head';
 import { StudioHome } from './studio-home';
 import CourseRerun from './course-rerun';
