@@ -6,6 +6,5 @@ export const blockTypes = StrictDict({
   problem: 'problem',
   // ADDED_EDITORS GO BELOW
   video_upload: 'video_upload',
-  game: 'games',
   invideoquiz: 'invideoquiz',
 });

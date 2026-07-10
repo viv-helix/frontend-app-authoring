@@ -131,30 +131,8 @@ const triggerCourseRefresh = () => {
 /**
  * @param {func} returnToUnit - Callback function after save
  */
-export const saveBlock = (content, returnToUnit) => (dispatch, getState) => {
+export const saveBlock = (content, returnToUnit) => (dispatch) => {
   dispatch(actions.app.setBlockContent(content));
-
-  // Games block uses a custom handler for saving
-  const blockType = selectors.blockType(getState());
-  if (blockType === 'games' && content.gameType) {
-    dispatch(requests.saveGamesSettings({
-      gameType: content.gameType,
-      isShuffled: content.isShuffled,
-      hasTimer: content.hasTimer,
-      cards: content.cards,
-      onSuccess: (response) => {
-        triggerCourseRefresh();
-        returnToUnit(response.data);
-      },
-      onFailure: (error) => {
-        dispatch(actions.requests.failRequest({
-          requestKey: RequestKeys.saveBlock,
-          error,
-        }));
-      },
-    }));
-    return;
-  }
 
   // Standard save for other block types
   dispatch(requests.saveBlock({
