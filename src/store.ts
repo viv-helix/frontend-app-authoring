@@ -29,7 +29,7 @@ import { reducer as accessibilityPageReducer } from './accessibility-page/data/s
 import { reducer as textbooksReducer } from './textbooks/data/slice';
 import { reducer as certificatesReducer } from './certificates/data/slice';
 import { reducer as groupConfigurationsReducer } from './group-configurations/data/slice';
-import { reducer as releaseNotesReducer } from './release-notes/data/slice';
+import { releaseNotesReducer } from '@edx/frontend-plugin-authoring';
 
 type InferState<ReducerType> = ReducerType extends Reducer<infer T> ? T : never;
 

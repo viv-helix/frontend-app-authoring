@@ -341,15 +341,6 @@ export const apiMethods = {
         id: blockId,
         metadata: { display_name: title, ...content.settings },
       };
-    } else if (blockType === 'games') {
-      response = {
-        data: content,
-        category: blockType,
-        courseKey: learningContextId,
-        has_changes: true,
-        id: blockId,
-        metadata: { display_name: title, ...content.settings },
-      };
     } else if (blockType === 'video') {
       const {
         html5Sources,
@@ -424,79 +415,6 @@ export const apiMethods = {
     handlerName,
   }) => get(
     urls.handlerUrl({ studioEndpointUrl, blockId, handlerName }),
-  ),
-  uploadGamesImage: ({
-    studioEndpointUrl,
-    blockId,
-    image,
-  }) => {
-    const data = new FormData();
-    data.append('file', image);
-    return post(
-      urls.xblockHandler({ studioEndpointUrl, blockId, handlerName: 'upload_image' }),
-      data,
-    );
-  },
-  getGamesSettings: ({
-    studioEndpointUrl,
-    blockId,
-  }) => post(
-    urls.xblockHandler({ studioEndpointUrl, blockId, handlerName: 'get_settings' }),
-    {},
-  ),
-  saveGamesSettings: ({
-    studioEndpointUrl,
-    blockId,
-    gameType,
-    isShuffled,
-    cards,
-    hasTimer,
-    title,
-  }) => {
-    // Transform cards to include order and format properly
-    // For matching games, exclude image fields
-    const formattedCards = cards.map((card, index) => {
-      const baseCard = {
-        term: card.term || '',
-        definition: card.definition || '',
-        order: index + 1,
-      };
-      if (gameType === 'flashcards') {
-        return {
-          ...baseCard,
-          term_image: card.term_image || '',
-          term_image_alt: card.term_image_alt || '',
-          definition_image: card.definition_image || '',
-          definition_image_alt: card.definition_image_alt || '',
-        };
-      }
-      return baseCard;
-    });
-
-    const payload: any = {
-      display_name: title,
-      game_type: gameType,
-      is_shuffled: isShuffled,
-      cards: formattedCards,
-    };
-
-    // Only include has_timer for matching game type
-    if (gameType === 'matching') {
-      payload.has_timer = hasTimer;
-    }
-
-    return post(
-      urls.xblockHandler({ studioEndpointUrl, blockId, handlerName: 'save_settings' }),
-      payload,
-    );
-  },
-  deleteGamesImage: ({
-    studioEndpointUrl,
-    blockId,
-    key,
-  }) => post(
-    urls.xblockHandler({ studioEndpointUrl, blockId, handlerName: 'delete_image_handler' }),
-    { key },
   ),
   saveInVideoQuizSettings: ({
     studioEndpointUrl,

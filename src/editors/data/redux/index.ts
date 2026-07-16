@@ -7,36 +7,41 @@ import * as app from './app';
 import * as requests from './requests';
 import * as video from './video';
 import * as problem from './problem';
-import * as game from './game';
 import * as inVideoQuiz from './inVideoQuiz';
 import type { RequestKeys, RequestStates } from '../constants/requests';
 import { AdvancedProblemType, ProblemType } from '../constants/problem';
 
 export { default as thunkActions } from './thunkActions';
 
-const editorReducer = combineReducers({
-  app: app.reducer,
-  requests: requests.reducer,
-  video: video.reducer,
-  problem: problem.reducer,
-  game: game.reducer,
-  inVideoQuiz: inVideoQuiz.reducer,
-});
-
-const rootReducer = (state: any, action: any) => {
-  if (action.type === 'resetEditor') {
-    return editorReducer(undefined, action);
-  }
-
-  return editorReducer(state, action);
+/**
+ * Builds the editors root reducer, optionally extended with reducer slices an
+ * editor plugin injects at runtime (see ../store.ts `injectReducer`). This is NOT
+ * called with extra reducers at module scope — editor plugins live in separate
+ * packages that import from this module (e.g. to reuse `selectors`/`actions`), so
+ * statically importing a plugin here (to read its reducer) would create a circular
+ * dependency. Plugins register their reducer imperatively at runtime instead.
+ */
+export const buildRootReducer = (extraReducers: Record<string, any> = {}) => {
+  const combined = combineReducers({
+    app: app.reducer,
+    requests: requests.reducer,
+    video: video.reducer,
+    problem: problem.reducer,
+    inVideoQuiz: inVideoQuiz.reducer,
+    ...extraReducers,
+  });
+  return (state: any, action: any) => (
+    action.type === 'resetEditor' ? combined(undefined, action) : combined(state, action)
+  );
 };
+
+const rootReducer = buildRootReducer();
 
 const actions = StrictDict({
   app: app.actions,
   requests: requests.actions,
   video: video.actions,
   problem: problem.actions,
-  game: game.actions,
   inVideoQuiz: inVideoQuiz.actions,
 });
 
@@ -45,7 +50,6 @@ const selectors = StrictDict({
   requests: requests.selectors,
   video: video.selectors,
   problem: problem.selectors,
-  game: game.selectors,
   inVideoQuiz: inVideoQuiz.selectors,
 });
 
@@ -195,17 +199,13 @@ export interface EditorState {
       }
     }
   },
-  game: {
-    settings: Record<string, any>;
-    exampleValue: 'this is an example value from the redux state';
-  }
 }
 
 export { actions, selectors };
 
 export function initializeStore(preloadedState = undefined) {
   return configureStore({
-    reducer: editorReducer,
+    reducer: rootReducer,
     preloadedState,
   });
 }
